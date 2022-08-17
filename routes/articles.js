@@ -4,7 +4,6 @@ const router = express.Router();
 const connect = require('../db/index')
 const fs = require('fs')
 const path = require('path')
-const marked = require('marked')
 
 //获取文章内容
 router.get('/getArticleContent/:articleId', function (req, resp) {
@@ -13,8 +12,6 @@ router.get('/getArticleContent/:articleId', function (req, resp) {
         if (err) {
             console.error('数据库查询错误：', err);
         } else {
-            //返回给前台的文章将md转换为html
-            res[0].content = marked.parse(res[0].content)
             resp.send({
                 code: 200,
                 msg: `id为${req.params.articleId}的文章信息获取成功`,
@@ -118,8 +115,8 @@ router.post('/deleteArticle', (req, resp) => {
 
 //添加文章
 router.post('/addArticle', (req, resp) => {
-    const { title, author, date, categoryId, tagId, content, isshow, imgList } = req.body
-    let sql = `insert into article (title,author,date,categoryId,tagId,readNum,content,likes,isshow,imgList) values ('${title}','${author}',${date},${categoryId},'${tagId}',0,` + JSON.stringify(content) + `,0,'${isshow}','${JSON.stringify(imgList)}')`
+    const { title, author, date, categoryId, tagId, content, htmlContent, isshow, imgList } = req.body
+    let sql = `insert into article (title,author,date,categoryId,tagId,readNum,content,htmlContent,likes,isshow,imgList) values ('${title}','${author}',${date},${categoryId},'${tagId}',0,` + JSON.stringify(content) + ',' + JSON.stringify(htmlContent) + `,0,'${isshow}','${JSON.stringify(imgList)}')`
     connect.query(sql, (err, res) => {
         if (err) {
             console.error('数据库执行错误：', err);
@@ -160,9 +157,9 @@ router.post('/addArticle', (req, resp) => {
 
 //编辑文章
 router.post('/editArticle', (req, resp) => {
-    const { id, title, author, categoryId, oldCategoryId, tagId, addTag, minusTag, content, isshow, imgList } = req.body
+    const { id, title, author, categoryId, oldCategoryId, tagId, addTag, minusTag, content, htmlContent, isshow, imgList } = req.body
     //这里文章内容不能直接使用字符串赋值，不然会和文章内的引号等冲突，这里应该使用JSON.stringify将字符串转义再使用
-    let sql = `update article set title='${title}',author='${author}',categoryId=${categoryId},tagId='${tagId}',content=` + JSON.stringify(content) + `,isshow='${isshow}',imgList='${JSON.stringify(imgList)}' where id=${id}`
+    let sql = `update article set title='${title}',author='${author}',categoryId=${categoryId},tagId='${tagId}',content=` + JSON.stringify(content) + ',htmlContent=' + JSON.stringify(htmlContent) + `,isshow='${isshow}',imgList='${JSON.stringify(imgList)}' where id=${id}`
     connect.query(sql, (err, res) => {
         if (err) {
             console.error('数据库执行错误：', err);

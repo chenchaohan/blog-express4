@@ -43,7 +43,7 @@ router.get('/getComment/:articleId?', function (req, resp) {
 //提交评论数据
 router.post('/submitComment', function (req, resp) {
     let { tos, froms, email, content, date, articleId, parentId, toId } = req.body
-    let sql = `insert into comment (tos,froms,email,content,date,articleId,parentId,toId) values ("${tos}","${froms}","${email}","${content}","${date}",${articleId},${parentId},${toId})`
+    let sql = `insert into comment (tos,froms,email,content,date,articleId,parentId,toId,avatar) values ("${tos}","${froms}","${email}","${content}","${date}",${articleId},${parentId},${toId},"/imgs/avatar/avatar${Math.floor(Math.random() * 10 + 1)}.jpg")`
     connect.query(sql, (err, res) => {
         if (err) {
             console.error('数据库提交错误：', err);
