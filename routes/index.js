@@ -45,24 +45,47 @@ router.get('/getArticleList', function (req, resp) {
   if (req.query.categoryId) {
     //查询分类文章
     sql = `select id,title,date,categoryId,isshow from article where categoryId=${req.query.categoryId}`
+    connect.query(sql, (err, res) => {
+      if (err) {
+        console.error('数据库查询错误：', err);
+      } else {
+        resp.send({
+          code: 200,
+          msg: "文章列表获取成功",
+          data: res
+        })
+      }
+    })
   } else if (req.query.tagId) {
-    //查询标签文章(使用正则匹配)
-    sql = `select id,title,date,tagId,isshow from article where tagId regexp ${req.query.tagId}`
+    //查询标签文章
+    let sql2 = `select id,title,date,tagId,isshow from article`
+    connect.query(sql2, (err2, res2) => {
+      if (err2) {
+        console.error('数据库查询错误：', err2);
+      } else {
+        let list = res2.filter(item => item.tagId.split('、').indexOf(req.query.tagId) != -1)
+        resp.send({
+          code: 200,
+          msg: "标签文章列表获取成功",
+          data: list
+        })
+      }
+    })
   } else {
     //查询所有文章列表
     sql = `select id,title,date,categoryId,tagId,isshow from article`
+    connect.query(sql, (err, res) => {
+      if (err) {
+        console.error('数据库查询错误：', err);
+      } else {
+        resp.send({
+          code: 200,
+          msg: "文章列表获取成功",
+          data: res
+        })
+      }
+    })
   }
-  connect.query(sql, (err, res) => {
-    if (err) {
-      console.error('数据库查询错误：', err);
-    } else {
-      resp.send({
-        code: 200,
-        msg: "文章列表获取成功",
-        data: res
-      })
-    }
-  })
 })
 
 //登录
