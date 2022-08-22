@@ -76,8 +76,8 @@ router.post('/login', (req, resp) => {
   connect.query(sql, (err, res) => {
     //登录成功
     if (res[0]) {
-      //生成token
-      const token = jwt.sign(payload, global.secretJwt, { expiresIn: '1h' })
+      //生成token(有效期10小时)
+      const token = jwt.sign(payload, global.secretJwt, { expiresIn: '10h' })
       let result = {
         mes: res[0],
         token
