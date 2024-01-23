@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     host: '114.55.75.3',
     user: 'root',
     password: '123456',
-    database: 'blog-aliyun',
+    database: 'blog',
     useConnectionPooling: true  // 解决连接数据库报错问题
     //连接本地数据库
     // host: '127.0.0.1',
