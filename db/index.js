@@ -6,6 +6,7 @@ var connection = mysql.createConnection({
     user: 'haixtx',
     password: 'hewujun1027',
     database: 'blog',
+    port: 3307, // 端口号，默认3306
     useConnectionPooling: true  // 解决连接数据库报错问题
     //连接本地数据库
     // host: '127.0.0.1',
