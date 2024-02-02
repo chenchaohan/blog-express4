@@ -3,8 +3,8 @@ var mysql = require('mysql')
 var connection = mysql.createConnection({
     //连接远程数据库
     host: '114.55.75.3',
-    user: 'root',
-    password: '123456',
+    user: 'haixtx',
+    password: 'hewujun1027',
     database: 'blog',
     useConnectionPooling: true  // 解决连接数据库报错问题
     //连接本地数据库
