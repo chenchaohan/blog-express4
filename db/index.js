@@ -8,7 +8,6 @@ var connection = mysql.createConnection({
     database: 'blog',
     port: 3307, // 端口号，默认3306
     useConnectionPooling: true,  // 解决连接数据库报错问题
-    debug: true,
     // 解决错误Error: Cannot enqueue Query after fatal error.
     // supportBigNumbers: true,
     // bigNumberStrings: true
