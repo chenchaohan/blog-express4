@@ -10,8 +10,8 @@ var connection = mysql.createConnection({
     useConnectionPooling: true,  // 解决连接数据库报错问题
     debug: true,
     // 解决错误Error: Cannot enqueue Query after fatal error.
-    supportBigNumbers: true,
-    bigNumberStrings: true
+    // supportBigNumbers: true,
+    // bigNumberStrings: true
     //连接本地数据库
     // host: '127.0.0.1',
     // user: 'root',
