@@ -37,14 +37,14 @@ var mysql = require('mysql')
 // module.exports = connection
 
 function handleDisconnect() {
-  var connection = mysql.createPool({
+  var connection = mysql.createConnection({
     //连接远程数据库
     host: '114.55.75.3',
     user: 'haixtx',
     password: 'hewujun1027',
     database: 'blog',
     port: 3307, // 端口号，默认3306
-    // useConnectionPooling: true,  // 解决连接数据库报错问题
+    useConnectionPooling: true,  // 解决连接数据库报错问题
     // 解决错误Error: Cannot enqueue Query after fatal error.
     // supportBigNumbers: true,
     // bigNumberStrings: true
