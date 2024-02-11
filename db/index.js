@@ -37,7 +37,7 @@ var mysql = require('mysql')
 // module.exports = connection
 
 function handleDisconnect() {
-  var connection = mysql.createConnection({
+  var connection = mysql.createPool({
     //连接远程数据库
     host: '114.55.75.3',
     user: 'haixtx',
