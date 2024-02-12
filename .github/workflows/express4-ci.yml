@@ -37,4 +37,4 @@ jobs:
             docker rmi -f $(docker images ${{ secrets.DOCKER_REPOSITORY }}:latest -q)
             docker login registry.cn-hangzhou.aliyuncs.com --username=${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
             docker pull ${{ secrets.DOCKER_REPOSITORY }}:latest
-            docker run -p 3000:4000 -v /projectImages/blog/images:/usr/src/public/imgs -d ${{ secrets.DOCKER_REPOSITORY }}:latest
+            docker run -p 3000:4000 -v /projectImages/blog/images:/usr/src/public/imgs --restart=always -d ${{ secrets.DOCKER_REPOSITORY }}:latest
