@@ -10,7 +10,6 @@ var mysqlConfig = {
   port: 3307, // 端口号，默认3306
   // 解决连接数据库报错问题
   useConnectionPooling: true,
-  debug: true,
   // 连接超时时间设置为60s
   connectTimeout: 60000
   // 解决错误Error: Cannot enqueue Query after fatal error.
