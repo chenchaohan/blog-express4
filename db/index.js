@@ -4,10 +4,12 @@ var mysql = require('mysql')
 var mysqlConfig = {
   //连接远程数据库
   host: '114.55.75.3',
-  user: 'haixtx',
+  user: 'root',
+  // user: 'haixtx',  //docker部署mysql
   password: 'hewujun1027',
   database: 'blog',
-  port: 3307, // 端口号，默认3306
+  port: 3306,
+  // port: 3307, // docker部署mysql--端口号，默认3306
   // 解决连接数据库报错问题
   useConnectionPooling: true,
   // 连接超时时间设置为60s
