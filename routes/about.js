@@ -9,6 +9,9 @@ router.get('/getAbout', function (req, resp) {
     connect.query(sql, (err, res) => {
         if (err) {
             console.error('数据库查询错误：', err);
+            // if(err.code==='ECONNRESET'){
+            //   connect = require('../db/index')()
+            // }
         } else {
             resp.send({
                 code: 200,
