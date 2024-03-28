@@ -24,9 +24,9 @@ var mysqlConfig = {
   // password: 'hewujun1027',
   // database: 'blogsql'
 }
-
+let connection
 function handleDisconnect () {
-  var connection = mysql.createConnection(mysqlConfig)
+  connection = mysql.createConnection(mysqlConfig)
 
   connection.connect((err) => {
     if (err) {
@@ -41,22 +41,23 @@ function handleDisconnect () {
   // 监听MySQL连接的end事件，一旦连接断开则自动重连
   connection.on('end', function() {
     console.log('数据库连接已断开，正在尝试重新连接...')
-    connection.connect(function(err) {
-      if (err) {
-        console.error('数据库重新连接失败，2s后再次尝试重连：' + err.stack)
-        setTimeout(function() {
-          connection.connect(function(err) {
-            if (err) {
-              console.error('数据库二次重新连接失败：' + err.stack)
-            } else {
-              console.log('数据库重新连接成功')
-            }
-          })
-        }, 2000)
-      } else {
-        console.log('数据库重新连接成功')
-      }
-    })
+    handleDisconnect()
+    // connection.connect(function(err) {
+    //   if (err) {
+    //     console.error('数据库重新连接失败，2s后再次尝试重连：' + err.stack)
+    //     setTimeout(function() {
+    //       connection.connect(function(err) {
+    //         if (err) {
+    //           console.error('数据库二次重新连接失败：' + err.stack)
+    //         } else {
+    //           console.log('数据库重新连接成功')
+    //         }
+    //       })
+    //     }, 2000)
+    //   } else {
+    //     console.log('数据库重新连接成功')
+    //   }
+    // })
   })
 
   connection.on('error', (err) => {
@@ -70,7 +71,8 @@ function handleDisconnect () {
     }
   })
 
-  return connection
+  // return connection
 }
+handleDisconnect ()
 
-module.exports = handleDisconnect()
+module.exports = connection
