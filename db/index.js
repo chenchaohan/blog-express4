@@ -1,5 +1,6 @@
 //连接mysql数据库
 var mysql = require('mysql')
+var { exec } = require('child_process');
 
 var mysqlConfig = {
   //连接远程数据库
@@ -24,6 +25,18 @@ var mysqlConfig = {
   // password: 'hewujun1027',
   // database: 'blogsql'
 }
+
+// 重新启动项目
+var restartProject = function(){
+  exec('node app.js', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`重启项目失败: ${error}`);
+      return;
+    }
+    console.log(`重启项目成功: ${stdout}`);
+  });
+}
+
 let connection
 function handleDisconnect () {
   connection = mysql.createConnection(mysqlConfig)
@@ -40,8 +53,11 @@ function handleDisconnect () {
 
   // 监听MySQL连接的end事件，一旦连接断开则自动重连
   connection.on('end', function() {
-    console.log('数据库连接已断开，正在尝试重新连接...')
-    handleDisconnect()
+    console.log('数据库连接已断开，重新启动项目重连数据库...')
+    restartProject()
+
+    // handleDisconnect()
+
     // connection.connect(function(err) {
     //   if (err) {
     //     console.error('数据库重新连接失败，2s后再次尝试重连：' + err.stack)
@@ -60,16 +76,16 @@ function handleDisconnect () {
     // })
   })
 
-  connection.on('error', (err) => {
-    console.log('mysql连接错误：', err)
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      console.error('数据库连接已关闭，执行重连')
-      // 重连
-      handleDisconnect()
-    } else {
-      throw err
-    }
-  })
+  // connection.on('error', (err) => {
+  //   console.log('mysql连接错误：', err)
+  //   if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+  //     console.error('数据库连接已关闭，执行重连')
+  //     // 重连
+  //     handleDisconnect()
+  //   } else {
+  //     throw err
+  //   }
+  // })
 
   // return connection
 }
