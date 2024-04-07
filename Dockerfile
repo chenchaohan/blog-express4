@@ -6,6 +6,7 @@ RUN mkdir -p /usr/src
 COPY . /usr/src
 WORKDIR /usr/src
 RUN npm install
+RUN npm install pm2 -g
 EXPOSE 4000
 # CMD ["node","app.js"]
 CMD ["pm2-runtime","app.js"]
