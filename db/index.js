@@ -14,7 +14,7 @@ var mysqlConfig = {
   // 解决连接数据库报错问题
   // useConnectionPooling: true,
   // 连接超时时间设置为60s
-  connectTimeout: 60000
+  // connectTimeout: 60000
   // 解决错误Error: Cannot enqueue Query after fatal error.
   // supportBigNumbers: true,
   // bigNumberStrings: true
@@ -25,10 +25,10 @@ var mysqlConfig = {
   // password: 'hewujun1027',
   // database: 'blogsql'
 }
-
-// 重新启动项目
+// 以pm2接管项目重新启动项目
 var restartProject = function(){
-  exec('node app.js', (error, stdout, stderr) => {
+  // process.exit()
+  exec('npm run restart', (error, stdout, stderr) => {
     if (error) {
       console.error(`重启项目失败: ${error}`);
       return;
@@ -36,7 +36,6 @@ var restartProject = function(){
     console.log(`重启项目成功: ${stdout}`);
   });
 }
-
 let connection
 function handleDisconnect () {
   connection = mysql.createConnection(mysqlConfig)
@@ -53,7 +52,7 @@ function handleDisconnect () {
 
   // 监听MySQL连接的end事件，一旦连接断开则自动重连
   connection.on('end', function() {
-    console.log('数据库连接已断开，重新启动项目重连数据库...')
+    console.log('数据库连接已断开，pm2重启项目重连数据库...')
     restartProject()
 
     // handleDisconnect()
