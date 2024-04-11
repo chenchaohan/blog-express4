@@ -42,9 +42,9 @@ function handleDisconnect () {
 
   connection.connect((err) => {
     if (err) {
-      console.error('mysql连接错误，2s后重连: ' + err.stack)
-      // 2s后重连
-      setTimeout(handleDisconnect, 2000)
+      // console.error('mysql连接错误，2s后重连: ' + err.stack)
+      // // 2s后重连
+      // setTimeout(handleDisconnect, 2000)
       return
     }
     console.log('数据库连接成功，mysql连接进程id: ' + connection.threadId)
