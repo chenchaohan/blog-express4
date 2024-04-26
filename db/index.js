@@ -42,6 +42,7 @@ function handleDisconnect () {
 
   connection.connect((err) => {
     if (err) {
+      console.log('mysql连接错误', err)
       // console.error('mysql连接错误，2s后重连: ' + err.stack)
       // // 2s后重连
       // setTimeout(handleDisconnect, 2000)
